@@ -62,6 +62,25 @@ class StartCommand extends Command
     private function buildKeyboard(): false|string
     {
         return json_encode([
+            'keyboard' => [
+                [
+                    [
+                        'text' => 'Test 1',
+                    ]
+                ],
+                [
+                    [
+                        'text' => 'Test 2',
+                    ]
+                ],
+            ],
+        'resize_keyboard' => true,
+        ], JSON_THROW_ON_ERROR | false, 512);
+    }
+
+    private function buildInlineKeyboard(): false|string
+    {
+        return json_encode([
             'inline_keyboard' => [
                 [
                     ['text' => 'Test 1', 'callback_data' => 'test_btn 1'],
