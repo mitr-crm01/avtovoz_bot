@@ -3,6 +3,7 @@
 namespace App\Telegram\Commands;
 
 use App\Models\TelegramUser;
+use App\Models\TelegramUserState;
 use Exception;
 use JsonException;
 use Illuminate\Support\Facades\Log;
@@ -31,6 +32,12 @@ class StartCommand extends Command
                     'language_code' => $user->getLanguageCode() ?? null,
                     'is_premium' => $user->isPremium() ?? false,
                 ]
+            );
+
+            // Проверка состояния пользователя
+            $userState = TelegramUserState::updateOrCreate(
+                ['telegram_user_id' => $telegramUser->id],
+                ['state' => 'start']
             );
 
             // Отправка ответа пользователю
